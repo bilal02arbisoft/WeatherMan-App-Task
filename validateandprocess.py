@@ -1,4 +1,6 @@
 from typing import Set, Callable
+from utils import extract_year
+from utils import is_valid_year, is_valid_year_month
 
 
 class ValidateProcessWeather:
@@ -80,4 +82,3 @@ class ValidateProcessWeather:
             raise ValueError(f'Input \'{date_year}\' year does not exists in records '
                              f'Please enter year in range: \n'
                              f'{self.weather_existing_years}')
-
