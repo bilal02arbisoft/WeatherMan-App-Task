@@ -1,6 +1,7 @@
 from typing import Dict, Tuple, List
 from collections import defaultdict
 from parser import extract_year, extract_year_month
+from results import YearlyExtremeWeatherResult, MonthlyAveragesWeatherResult, MonthlyExtremeBarChartResult
 
 
 class WeatherCalculations:
