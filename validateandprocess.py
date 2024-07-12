@@ -4,8 +4,9 @@ from utils import is_valid_year, is_valid_year_month
 
 
 class ValidateProcessWeather:
-
-    """Validates user inputs and processes weather data based on it"""
+    """
+    Validates user inputs and processes weather data based on it
+    """
     def __init__(self, weather_years: Set[int]):
 
         self.weather_existing_years = weather_years
@@ -23,11 +24,9 @@ class ValidateProcessWeather:
             date_year_month (str): Year and month (YYYY-MM) for which to process weather data.
             compute_weather (Callable): Function to compute weather statistics.
             generate_weather_report (Callable): Function to generate weather report.
-
         Returns:
             str: Formatted report on monthly weather statistics.
         """
-
         if (is_valid_year_month(date_year_month) and
            self.year_found_in_existing_years(extract_year(date_year_month))):
 
@@ -51,19 +50,15 @@ class ValidateProcessWeather:
     def yearly_weather(self, date_year: str,
                        compute_weather: Callable,
                        generate_weather_report: Callable) -> str:
-
         """
-               Processes yearly weather data and generates a formatted report.
-
-               Args:
-                   date_year (str): Year for which to process weather data.
-                   compute_weather (Callable): Function to compute weather statistics.
-                   generate_weather_report (Callable): Function to generate weather report.
-
-               Returns:
-                   str: Formatted report on yearly weather statistics.
+        Processes yearly weather data and generates a formatted report.
+           Args:
+               date_year (str): Year for which to process weather data.
+               compute_weather (Callable): Function to compute weather statistics.
+               generate_weather_report (Callable): Function to generate weather report.
+           Returns:
+               str: Formatted report on yearly weather statistics.
         """
-
         if (is_valid_year(date_year) and
            self.year_found_in_existing_years(int(date_year))):
 
