@@ -2,8 +2,9 @@ from typing import List
 
 
 class YearlyExtremeWeatherResult:
-
-    """Data Structure Representing yearly extreme weather statistics."""
+    """
+    Data Structure Representing yearly extreme weather statistics.
+    """
     def __init__(self, max_temp: float, max_temp_day: str,
                  min_temp: float, min_temp_day: str,
                  max_humid: float, max_humid_day: str):
@@ -23,7 +24,9 @@ class YearlyExtremeWeatherResult:
 
 
 class MonthlyAveragesWeatherResult:
-    """ Data Structure representing monthly average weather statistics."""
+    """
+     Data Structure representing monthly average weather statistics.
+    """
     def __init__(self, avg_highest_temp: float,
                  avg_lowest_temp: float,
                  avg_mean_humidity: float):
@@ -40,9 +43,10 @@ class MonthlyAveragesWeatherResult:
 
 
 class MonthlyExtremeBarChartResult:
-
-    """ Data Structure Representing monthly extreme
-     weather statistics for generating a bar chart."""
+    """
+     Data Structure Representing monthly extreme
+     weather statistics for generating a bar chart.
+    """
     def __init__(self, days: List[str], highest_temps: List[float],
                  lowest_temps: List[float]):
 
