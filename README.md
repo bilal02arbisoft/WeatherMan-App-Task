@@ -182,20 +182,19 @@ Contributions are welcome from everyone to the WeatherMan App project! To ensure
 
 ### Code Contributions
 
-**Fork the Repository:** Fork the repository to your GitHub account, and create a new branch for your feature or fix.
+Fork the Repository: Fork the repository to your GitHub account, and create a new branch for your feature or fix.
 
-**Coding Standards:** Follow PEP 8 guidelines for Python code style. Maintain clarity, readability, and consistency with existing code.
+Coding Standards: Follow PEP 8 guidelines for Python code style. Maintain clarity, readability, and consistency with existing code.
 
-**Testing:** Write tests to cover your code changes. Ensure all tests pass before submitting a pull request.
+Testing: Write tests to cover your code changes. Ensure all tests pass before submitting a pull request.
 
-**Commit Messages:** Write clear and descriptive commit messages. Include a summary in the subject line and provide details in the body if necessary.
+Commit Messages: Write clear and descriptive commit messages. Include a summary in the subject line and provide details in the body if necessary.
 
 ### Pull Requests
 
-**Create a Pull Request:** Once your changes are ready, submit a pull request to the main branch of the original repository.
+Create a Pull Request: Once your changes are ready, submit a pull request to the main branch of the original repository.
 
-**Describe Your Changes:** Provide a clear description of your changes in the pull request. Mention any related issues by linking them (#issue_number).
-
-**Review Process:** Your pull request will be reviewed by maintainers. Address any feedback or requested changes promptly.
+Describe Your Changes: Provide a clear description of your changes in the pull request. Mention any related issues by linking them (#issue_number).
+Review Process: Your pull request will be reviewed by maintainers. Address any feedback or requested changes promptly.
 
 
