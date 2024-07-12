@@ -2,8 +2,11 @@ import argparse
 from parser import ParseWeatherFiles
 from calculations import WeatherCalculations
 from reports import WeatherReportsGenerate
+from validateandprocess import ValidateProcessWeather
+
 
 def start_weatherman_app() -> None:
+
     parser = argparse.ArgumentParser('Weather data Processor Application')
 
     parser.add_argument('directory', type=str, help='Path to weather data files directory')
