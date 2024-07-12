@@ -1,5 +1,6 @@
 import argparse
 from parser import ParseWeatherFiles
+from calculations import WeatherCalculations
 
 
 def start_weatherman_app() -> None:
