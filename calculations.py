@@ -1,12 +1,14 @@
 from typing import Dict, Tuple, List
 from collections import defaultdict
 from utils import extract_year, extract_year_month
-from results import YearlyExtremeWeatherResult, MonthlyAveragesWeatherResult, MonthlyExtremeBarChartResult
+from results import (YearlyExtremeWeatherResult, MonthlyAveragesWeatherResult,
+                     MonthlyExtremeBarChartResult)
 
 
 class WeatherCalculations:
-
-    """Performs calculations on parsed weather data."""
+    """
+    Performs calculations on parsed weather data.
+    """
     def __init__(self, weather_recordings_data: list[Dict[str, str]]):
 
         self.weather_data = weather_recordings_data
@@ -26,6 +28,7 @@ class WeatherCalculations:
                 try:
                     max_temp_value = float(weather_entry['Max TemperatureC'])
                     if max_temp_value > max_temp_tuple[0]:
+
                         max_temp_tuple = (max_temp_value, weather_entry['PKT'])
 
                 except ValueError:
@@ -36,6 +39,7 @@ class WeatherCalculations:
                 try:
                     min_temp_value = float(weather_entry['Min TemperatureC'])
                     if min_temp_value < min_temp_tuple[0]:
+
                         min_temp_tuple = (min_temp_value, weather_entry['PKT'])
 
                 except ValueError:
@@ -46,6 +50,7 @@ class WeatherCalculations:
                 try:
                     max_humid_value = float(weather_entry['Max Humidity'])
                     if max_humid_value > max_humid_tuple[0]:
+
                         max_humid_tuple = (max_humid_value, weather_entry['PKT'])
 
                 except ValueError:
@@ -139,9 +144,11 @@ class WeatherCalculations:
         for weather_entry in self.weather_data:
 
             if weather_entry.get('PKT'):
+
                 weather_entry_year = extract_year(weather_entry.get('PKT'))
 
                 if filter_year == weather_entry_year:
+
                     filtered_data.append(weather_entry)
 
         return filtered_data
@@ -153,11 +160,14 @@ class WeatherCalculations:
         for weather_entry in self.weather_data:
 
             if weather_entry.get('PKT'):
+
                 weather_entry_year, weather_entry_month = extract_year_month(
-                    weather_entry.get('PKT'))
+                                                          weather_entry.get('PKT'))
                 filter_year, filter_month = extract_year_month(date_year_month)
 
-                if weather_entry_year == filter_year and weather_entry_month == filter_month:
+                if (weather_entry_year == filter_year and
+                   weather_entry_month == filter_month):
+
                     filtered_data.append(weather_entry)
 
         if filtered_data:
