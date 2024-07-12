@@ -5,8 +5,9 @@ from utils import is_valid_path, extract_year
 
 
 class ParseWeatherFiles:
-
-    """Parses weather data files from a specified directory."""
+    """
+    Parses weather data files from a specified directory.
+    """
     def __init__(self, directory_path: str):
 
         if is_valid_path(directory_path):
