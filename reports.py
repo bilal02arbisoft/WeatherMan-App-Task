@@ -1,10 +1,11 @@
-from results import YearlyExtremeWeatherResult, MonthlyAveragesWeatherResult, MonthlyExtremeBarChartResult
+from results import (YearlyExtremeWeatherResult, MonthlyAveragesWeatherResult,
+                     MonthlyExtremeBarChartResult)
 
 
 class WeatherReportsGenerate:
-
-    """Generates formatted reports based on weather statistics."""
-
+    """
+    Generates formatted reports based on weather statistics.
+    """
     @staticmethod
     def report_on_yearly_extreme(results: YearlyExtremeWeatherResult) -> str:
 
