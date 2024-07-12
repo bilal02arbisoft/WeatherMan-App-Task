@@ -1,4 +1,4 @@
-from commandlineinterface import start_weatherman_app
+from weatherman.commandlineinterface import start_weatherman_app
 
 
 if __name__ == '__main__':
