@@ -51,3 +51,16 @@ Weatherman-App-TASK/
     ```bash
     cd Weatherman-App-TASK
     ```
+## Detailed Usage
+
+To run the application, use the `main.py` file. Below are some example usages.
+
+### Generate Monthly Report:
+
+```bash
+python main.py /path/to/files-dir -a 2022/1
+```
+### Generate Yearly Report:  
+```bash
+python main.py /path/to/files-dir -e 2022
+'''
