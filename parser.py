@@ -22,6 +22,7 @@ class ParseWeatherFiles:
     def find_weather_files(self) -> List[str]:
 
         weather_files_path = glob.glob(os.path.join(self.weather_dir_path, '*.txt'))
+
         return weather_files_path
 
     def parse_weather_files(self) -> None:
@@ -39,8 +40,10 @@ class ParseWeatherFiles:
                 weather_observations = line.strip().split(',')
 
                 if len(weather_factors) == len(weather_observations):
+
                     weather_entry = {weather_factors[i]: weather_observations[i]
                                      for i in range(len(weather_observations))}
+
                     self.weather_data.append(weather_entry)
 
     def extract_years_from_weather_data(self) -> Set[int]:
