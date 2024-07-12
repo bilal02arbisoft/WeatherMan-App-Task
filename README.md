@@ -55,12 +55,26 @@ Weatherman-App-TASK/
 
 To run the application, use the `main.py` file. Below are some example usages.
 
-### Generate Monthly Report:
-
-```bash
-python main.py /path/to/files-dir -a 2022/1
+### Generate Yearly Extreme Report
+For a given year, display the highest temperature and day, lowest temperature and day, most humid day, and humidity.
+```sh
+python3 main.py /path/to/files-dir -e 2004
 ```
-### Generate Yearly Report:  
-```bash
-python main.py /path/to/files-dir -e 2022
-'''
+### Generate Monthly Average Report
+For a given month, display the average highest temperature, average lowest temperature, and average mean humidity.
+```sh
+python3 main.py /path/to/files-dir -a 2005/6
+```
+### Generate Monthly Bar Chart Report
+For a given month, draw two horizontal bar charts on the console for the highest and lowest temperature on each day. Highest in red and lowest in blue.
+```sh
+python3 main.py /path/to/files-dir -c 2011/03
+```
+### Generate Multiple Reports
+Generate all types of reports for a given month
+```sh
+python3 main.py /path/to/files-dir -c 2011/03 -a 2011/3 -e 2011
+
+````
+
+
