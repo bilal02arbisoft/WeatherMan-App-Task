@@ -1,7 +1,7 @@
 import os
 import glob
 from typing import Dict, List, Set
-from utils import is_valid_path, extract_year
+from .utils import is_valid_path, extract_year
 
 
 class ParseWeatherFiles:
