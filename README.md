@@ -28,3 +28,6 @@ Weatherman-App-TASK/
 ├── main.py                      # Main application script
 ├── README.md                    # Documentation file
 ├── .gitignore                   # Specifies intentionally untracked files to ignore
+````
+
+This format will ensure that the directory structure is displayed correctly in a preformatted text block, making it clear and easy to read.
