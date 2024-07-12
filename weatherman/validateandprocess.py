@@ -1,6 +1,6 @@
 from typing import Set, Callable
-from utils import extract_year
-from utils import is_valid_year, is_valid_year_month
+from .utils import extract_year
+from .utils import is_valid_year, is_valid_year_month
 
 
 class ValidateProcessWeather:
