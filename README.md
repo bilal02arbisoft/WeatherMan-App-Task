@@ -45,7 +45,7 @@ Weatherman-App-TASK/
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/Weatherman-App-TASK.git
+    git clone https://github.com/bilal02arbisoft/Weatherman-App-TASK.git
     ```
 2. Navigate to the project directory:
     ```bash
