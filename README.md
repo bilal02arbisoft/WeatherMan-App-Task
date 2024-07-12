@@ -78,19 +78,19 @@ python3 main.py /path/to/files-dir -c 2011-03 -a 2011-3 -e 2011
 ````
 ## Sample Outputs
 
-Yearly Extreme Report
+### Yearly Extreme Report
 ```sh
 Highest Temperature: 29.0C on 2004-6-4
 Lowest Temperature: 0.0C on 2004-12-17
 Max Humidity: 100.0% on 2004-12-16
 ```
-Monthly Average Report
+### Monthly Average Report
 ```sh
 Average Highest Temp: 25.8C 
 Average Lowest Temp: 20.88C 
 Average Mean Humidity: 42.36%
 ```
-Monthly Bar Chart Report
+### Monthly Bar Chart Report
 ```sh
 +++++ 5.0C 2011-3-1    0.0C 2011-3-1
 ++++ 4.0C 2011-3-2    0.0C 2011-3-2
@@ -124,7 +124,7 @@ Monthly Bar Chart Report
 +++++++++++++++++ 17.0C 2011-3-30   ++++++++ 8.0C 2011-3-30
  0C 2011-3-31    0C 2011-3-31
 ```
-Multiple reports
+### Multiple reports
 
 ```sh
 Highest Temperature: 38.0C on 2011-8-7
