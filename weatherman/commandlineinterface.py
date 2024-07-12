@@ -1,8 +1,8 @@
 import argparse
-from parser import ParseWeatherFiles
-from calculations import WeatherCalculations
-from reports import WeatherReportsGenerate
-from validateandprocess import ValidateProcessWeather
+from .parser import ParseWeatherFiles
+from .calculations import WeatherCalculations
+from .reports import WeatherReportsGenerate
+from .validateandprocess import ValidateProcessWeather
 
 
 def start_weatherman_app() -> None:
