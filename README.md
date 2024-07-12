@@ -171,11 +171,11 @@ Average Mean Humidity: 53.33%
 ## Error Handling
 The application includes robust error handling to manage scenarios such as:
 
--Invalid file paths
--Incorrect file formats
--Missing data
--Value conversion errors
--Invlaid User Input Handling
+- Invalid file paths
+- Incorrect file formats
+- Missing data
+- Value conversion errors
+- Invlaid User Input Handling
 
 ## Contribution Guidelines
 Contributions are welcome from everyone to the WeatherMan App project! To ensure a smooth collaboration, please follow these guidelines:
