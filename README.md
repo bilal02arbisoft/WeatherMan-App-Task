@@ -11,16 +11,20 @@ Weatherman-App-TASK is a comprehensive weather data analysis tool designed to pa
 - **Command Line Interface**: Easy-to-use CLI for interacting with the application.
 
 ## Directory Structure
+
+The application is organized as follows:
+
+```bash
 Weatherman-App-TASK/
 ├── weatherman/
-│   ├── __init__.py
-│   ├── parser.py
-│   ├── utility.py
-│   ├── calculations.py
-│   ├── results.py
-│   ├── reports.py
-│   ├── validateandprocess.py
-│   ├── commandlineinterface.py
-├── main.py
-├── README.md
-├── .gitignore
+│   ├── __init__.py              # Initialization script
+│   ├── parser.py                # Module for parsing data
+│   ├── utility.py               # Utility functions
+│   ├── calculations.py          # Weather data calculations
+│   ├── results.py               # Handles output results
+│   ├── reports.py               # Report generation module
+│   ├── validateandprocess.py    # Data validation and processing
+│   ├── commandlineinterface.py  # CLI for user interaction
+├── main.py                      # Main application script
+├── README.md                    # Documentation file
+├── .gitignore                   # Specifies intentionally untracked files to ignore
