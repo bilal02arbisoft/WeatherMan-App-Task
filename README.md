@@ -21,13 +21,13 @@ The application is organized as follows:
 Weatherman-App-TASK/
 ├── weatherman/
 │   ├── __init__.py              # Initialization script
-│   ├── parser.py                # Module for parsing data
-│   ├── utility.py               # Utility functions
-│   ├── calculations.py          # Weather data calculations
-│   ├── results.py               # Handles output results
-│   ├── reports.py               # Report generation module
-│   ├── validateandprocess.py    # Data validation and processing
-│   ├── commandlineinterface.py  # CLI for user interaction
+│   ├── parser.py                # Module for parsing weather data
+│   ├── utils.py                 # Utility functions
+│   ├── calculations.py          # Weather data calculations module
+│   ├── results.py               # Handles output results of weather calculations
+│   ├── reports.py               # Weather Report generation module
+│   ├── validateandprocess.py    # User Input validation and weather processing module 
+│   ├── commandlineinterface.py  # CLI module for user interaction
 ├── main.py                      # Main application script
 ├── README.md                    # Documentation file
 ├── .gitignore                   # Specifies intentionally untracked files to ignore
@@ -58,22 +58,22 @@ To run the application, use the `main.py` file. Below are some example usages.
 ### Generate Yearly Extreme Report
 For a given year, display the highest temperature and day, lowest temperature and day, most humid day, and humidity.
 ```sh
-python3 main.py /path/to/files-dir -e 2004
+python3 main.py /path/to/weather-data-txt-files-dir -e 2004
 ```
 ### Generate Monthly Average Report
 For a given month, display the average highest temperature, average lowest temperature, and average mean humidity.
 ```sh
-python3 main.py /path/to/files-dir -a 2005-06
+python3 main.py /path/to/weather-data-txt-files-dir -a 2005-06
 ```
 ### Generate Monthly Bar Chart Report
 For a given month, draw two horizontal bar charts on the console for the highest and lowest temperature on each day. Highest in red and lowest in blue.
 ```sh
-python3 main.py /path/to/files-dir -c 2011-03
+python3 main.py /path/to/weather-data-txt-files-dir -c 2011-03
 ```
 ### Generate Multiple Reports
 Generate all types of reports for a given month
 ```sh
-python3 main.py /path/to/files-dir -c 2011-03 -a 2011-3 -e 2011
+python3 main.py /path/to/weather-data-txt-files-dir -c 2011-03 -a 2011-03 -e 2011
 
 ````
 ## Sample Outputs
@@ -175,7 +175,7 @@ The application includes robust error handling to manage scenarios such as:
 - Incorrect file formats
 - Missing data
 - Value conversion errors
-- Invlaid User Input Handling
+- Invlaid User Input 
 
 # Code Contributions
 
