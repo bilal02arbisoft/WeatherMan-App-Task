@@ -4,21 +4,18 @@ import os
 
 
 def extract_year_month(date: str) -> Tuple[int, int]:
-
     year, month, *_ = map(int, date.split('-'))
 
     return year, month
 
 
 def extract_year(date: str) -> int:
-
     year = int(date.split('-')[0])
 
     return year
 
 
 def extract_month(date: str):
-
     month = int(date.split('-')[1])
 
     return month
@@ -40,6 +37,8 @@ def is_valid_year(date_year: str) -> bool:
 
 
 def is_valid_year_month(date_year_month: str) -> bool:
+    MIN_MONTH = 1
+    MAX_MONTH = 12
 
     return (bool(regex.match(r'^\d{4}-\d{2}$', date_year_month))
-            and (1 <= extract_month(date_year_month) <= 12))
+            and (MIN_MONTH <= extract_month(date_year_month) <= MAX_MONTH))
