@@ -55,9 +55,7 @@ class MonthlyExtremeBarChartResult:
         self.lowest_temps = lowest_temps
 
     def __repr__(self) -> str:
-
         bar_chart_lines = []
-
         for day, high_temp, low_temp in zip(self.days, self.highest_temps, self.lowest_temps):
             high_bar = '+' * int(high_temp)
             low_bar = '+' * int(low_temp)
