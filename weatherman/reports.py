@@ -1,5 +1,5 @@
-from .results import (YearlyExtremeWeatherResult, MonthlyAveragesWeatherResult,
-                      MonthlyExtremeBarChartResult)
+from weatherman.results import (YearlyExtremeWeatherResult, MonthlyAveragesWeatherResult,
+                                MonthlyExtremeBarChartResult)
 
 
 class WeatherReportsGenerate:
