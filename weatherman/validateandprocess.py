@@ -1,6 +1,6 @@
 from typing import Set, Callable
-from .utils import extract_year
-from .utils import is_valid_year, is_valid_year_month
+from weatherman.utils import extract_year
+from weatherman.utils import is_valid_year, is_valid_year_month
 
 
 class ValidateProcessWeather:
@@ -8,7 +8,6 @@ class ValidateProcessWeather:
     Validates user inputs and processes weather data based on it
     """
     def __init__(self, weather_years: Set[int]):
-
         self.weather_existing_years = weather_years
 
     def year_found_in_existing_years(self, date_year) -> bool:
@@ -36,7 +35,6 @@ class ValidateProcessWeather:
             return report
 
         elif not is_valid_year_month(date_year_month):
-
             raise ValueError(f'Invalid date format {date_year_month}. '
                              f'Please use format YYYY-MM ')
 
@@ -68,12 +66,10 @@ class ValidateProcessWeather:
             return report
 
         elif not is_valid_year(date_year):
-
             raise ValueError(f'Invalid year format: \'{date_year}\'.'
                              f' Please use format YYYY.')
 
         elif not self.year_found_in_existing_years(int(date_year)):
-
-            raise ValueError(f'Input \'{date_year}\' year does not exists in records '
+            raise ValueError(f'Input \'{date_year}\' year does not exists in records \n '
                              f'Please enter year in range: \n'
                              f'{self.weather_existing_years}')
