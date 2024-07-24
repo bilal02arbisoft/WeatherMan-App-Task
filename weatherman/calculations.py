@@ -96,7 +96,7 @@ class WeatherCalculations:
         for weather_entry in weather_data_by_month:
             days.append(weather_entry.get('PKT', ''))
             try:
-                highest_temp.append(float(weather_entry.get('Max TemperatureC', 0))
+                highest_temp.append(float(weather_entry.get('Max TemperatureC', 0)))
             except (ValueError, TypeError):
                 highest_temp.append(0)
             try:
