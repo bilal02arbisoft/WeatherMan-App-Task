@@ -39,7 +39,6 @@ class ParseWeatherFiles:
         with open(file_path, 'r') as file:
             weather_factors = [factor.strip()
                                for factor in file.readline().strip().split(',')]
-
             for line in file:
                 weather_observations = line.strip().split(',')
                 if len(weather_factors) == len(weather_observations):
