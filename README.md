@@ -1,8 +1,10 @@
 
-# Weatherman-App-TASK
+# Weatherman-App-Task
+
 
 ## Introduction
 Weatherman-App-TASK is a comprehensive weather data analysis tool designed to parse, process, and generate insightful reports from weather data files. The application supports various types of reports, including monthly, yearly, and graphical representations like bar charts.
+
 
 
 ## Features
@@ -221,4 +223,5 @@ The application includes robust error handling to manage scenarios such as:
 3. **Review Process:**
    - Your pull request will be reviewed by maintainers.
    - Address any feedback or requested changes promptly.
+
 
