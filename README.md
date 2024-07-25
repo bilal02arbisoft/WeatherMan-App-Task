@@ -1,7 +1,9 @@
-# Weatherman-App-Task
+
+# Weatherman-App-TASK
 
 ## Introduction
-Weatherman-App-Task is a comprehensive weather data analysis tool designed to parse, process, and generate insightful reports from weather data files. The application supports various types of reports, including monthly, yearly, and graphical representations like bar charts.
+Weatherman-App-TASK is a comprehensive weather data analysis tool designed to parse, process, and generate insightful reports from weather data files. The application supports various types of reports, including monthly, yearly, and graphical representations like bar charts.
+
 
 ## Features
 - Display highest temperature and day for a given year.
@@ -58,21 +60,28 @@ To run the application, use the `main.py` file. Below are some example usages.
 ### Generate Yearly Extreme Report
 For a given year, display the highest temperature and day, lowest temperature and day, most humid day, and humidity.
 ```sh
+
 python3 main.py /path/to/weather-data-txt-files-dir -e 2004
+
 ```
 ### Generate Monthly Average Report
 For a given month, display the average highest temperature, average lowest temperature, and average mean humidity.
 ```sh
+
 python3 main.py /path/to/weather-data-txt-files-dir -a 2005-06
+
 ```
 ### Generate Monthly Bar Chart Report
 For a given month, draw two horizontal bar charts on the console for the highest and lowest temperature on each day. Highest in red and lowest in blue.
 ```sh
+
 python3 main.py /path/to/weather-data-txt-files-dir -c 2011-03
+
 ```
 ### Generate Multiple Reports
 Generate all types of reports for a given month
 ```sh
+
 python3 main.py /path/to/weather-data-txt-files-dir -c 2011-03 -a 2011-03 -e 2011
 
 ````
