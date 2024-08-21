@@ -71,8 +71,11 @@ class WeatherDataController:
     Controller layer responsible for managing parsing and associated data used for reporting and logic.
     """
     def __init__(self, directory_path: str):
-        self.parser = ParseWeatherFiles(directory_path)
-        self.weather_data: List[Dict[str, str]] = []
+        try:
+            self.parser = ParseWeatherFiles(directory_path)
+            self.weather_data: List[Dict[str, str]] = []
+        except FileNotFoundError as e:
+            print(f"Error initializing WeatherDataController: {e}")
 
     def load_and_parse_data(self) -> None:
         """
@@ -102,4 +105,3 @@ class WeatherDataController:
             List[Dict[str, str]]: A list of parsed weather data entries.
         """
         return self.weather_data
-
