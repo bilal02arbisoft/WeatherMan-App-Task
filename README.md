@@ -26,7 +26,7 @@ Weatherman-App-TASK/
 │   ├── calculations.py          # Weather data calculations module
 │   ├── results.py               # Handles output results of weather calculations
 │   ├── reports.py               # Weather Report generation module
-│   ├── validateandprocess.py    # User Input validation and weather processing module 
+│   ├── validateandprocess.py    # User Input validation and weather processing module
 │   ├── commandlineinterface.py  # CLI module for user interaction
 ├── main.py                      # Main application script
 ├── README.md                    # Documentation file
@@ -58,22 +58,22 @@ To run the application, use the `main.py` file. Below are some example usages.
 ### Generate Yearly Extreme Report
 For a given year, display the highest temperature and day, lowest temperature and day, most humid day, and humidity.
 ```sh
-python3 main.py /path/to/weather-data-txt-files-dir -e 2004
+python3 main.py -e 2004
 ```
 ### Generate Monthly Average Report
 For a given month, display the average highest temperature, average lowest temperature, and average mean humidity.
 ```sh
-python3 main.py /path/to/weather-data-txt-files-dir -a 2005-06
+python3 main.py -a 2005-06
 ```
 ### Generate Monthly Bar Chart Report
 For a given month, draw two horizontal bar charts on the console for the highest and lowest temperature on each day. Highest in red and lowest in blue.
 ```sh
-python3 main.py /path/to/weather-data-txt-files-dir -c 2011-03
+python3 main.py -c 2011-03
 ```
 ### Generate Multiple Reports
 Generate all types of reports for a given month
 ```sh
-python3 main.py /path/to/weather-data-txt-files-dir -c 2011-03 -a 2011-03 -e 2011
+python3 main.py -c 2011-03 -a 2011-03 -e 2011
 
 ````
 ## Sample Outputs
@@ -86,8 +86,8 @@ Max Humidity: 100.0% on 2004-12-16
 ```
 ### Monthly Average Report
 ```sh
-Average Highest Temp: 25.8C 
-Average Lowest Temp: 20.88C 
+Average Highest Temp: 25.8C
+Average Lowest Temp: 20.88C
 Average Mean Humidity: 42.36%
 ```
 ### Monthly Bar Chart Report
@@ -131,9 +131,9 @@ Highest Temperature: 38.0C on 2011-8-7
 Lowest Temperature: -3.0C on 2011-1-15
 Max Humidity: 100.0% on 2011-8-28
 
-Average Highest Temp: 15.2C 
-Average Lowest Temp: 8.6C 
-Average Mean Humidity: 53.33% 
+Average Highest Temp: 15.2C
+Average Lowest Temp: 8.6C
+Average Mean Humidity: 53.33%
 
 +++++ 5.0C 2011-3-1    0.0C 2011-3-1
 ++++ 4.0C 2011-3-2    0.0C 2011-3-2
@@ -175,7 +175,7 @@ The application includes robust error handling to manage scenarios such as:
 - Incorrect file formats
 - Missing data
 - Value conversion errors
-- Invlaid User Input 
+- Invlaid User Input
 
 # Code Contributions
 
@@ -204,12 +204,11 @@ The application includes robust error handling to manage scenarios such as:
 
 1. **Create a Pull Request:**
    - Submit a pull request to the main branch of the original repository.
-   
+
 2. **Describe Your Changes:**
    - Provide a clear description of your changes in the pull request.
    - Mention any related issues by linking them (#issue_number).
-   
+
 3. **Review Process:**
    - Your pull request will be reviewed by maintainers.
    - Address any feedback or requested changes promptly.
-
