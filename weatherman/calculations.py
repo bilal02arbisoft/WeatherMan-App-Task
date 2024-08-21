@@ -1,11 +1,11 @@
-from typing import Dict, List, Tuple, Union
+import functools
+import logging
 from collections import defaultdict
+from typing import Dict, List, Tuple, Union
 from weatherman.utils import extract_year, extract_year_month
 from weatherman.results import (YearlyExtremeWeatherResult,
                                 MonthlyAveragesWeatherResult,
                                 MonthlyExtremeBarChartResult)
-import functools
-import logging
 
 MAX_TEMP = 'Max TemperatureC'
 MIN_TEMP = 'Min TemperatureC'
@@ -63,7 +63,6 @@ class WeatherCalculations:
         """
         weather_data_filtered_by_month = self.filter_weather_data_by_month(month)
         sums, counts = defaultdict(float), defaultdict(int)
-
         for weather_entry in weather_data_filtered_by_month:
             for key in [MAX_TEMP, MIN_TEMP, MEAN_HUMIDITY]:
                 value = self._extract_and_validate(weather_entry, key)
