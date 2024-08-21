@@ -1,146 +1,181 @@
-from typing import Dict, Tuple, List
+from typing import Dict, List, Tuple, Union
 from collections import defaultdict
 from weatherman.utils import extract_year, extract_year_month
-from weatherman.results import (YearlyExtremeWeatherResult, MonthlyAveragesWeatherResult,
+from weatherman.results import (YearlyExtremeWeatherResult,
+                                MonthlyAveragesWeatherResult,
                                 MonthlyExtremeBarChartResult)
+import functools
+import logging
+
+MAX_TEMP = 'Max TemperatureC'
+MIN_TEMP = 'Min TemperatureC'
+MAX_HUMIDITY = 'Max Humidity'
+MEAN_HUMIDITY = 'Mean Humidity'
+NEGATIVE_INFINITY = float('-inf')
+POSITIVE_INFINITY = float('inf')
 
 
 class WeatherCalculations:
     """
     Performs calculations on parsed weather data.
     """
-    def __init__(self, weather_recordings_data: list[Dict[str, str]]):
+    def __init__(self, weather_recordings_data: List[Dict[str, str]]):
         self.weather_data = weather_recordings_data
 
-    def compute_yearly_extreme_weather(self, year: str) -> YearlyExtremeWeatherResult:
-        weatherdata_filtered_by_year = self.filter_weather_data_by_year(year)
-        max_temp_tuple: Tuple[float, str] = (float('-inf'), '')
-        min_temp_tuple: Tuple[float, str] = (float('inf'), '')
-        max_humid_tuple: Tuple[float, str] = (float('-inf'), '')
-        for weather_entry in weatherdata_filtered_by_year:
-            if weather_entry.get('Max TemperatureC'):
-
-                try:
-                    max_temp_value = float(weather_entry['Max TemperatureC'])
-                    if max_temp_value > max_temp_tuple[0]:
-
-                        max_temp_tuple = (max_temp_value, weather_entry['PKT'])
-                except ValueError:
-                    pass
-
-            if weather_entry.get('Min TemperatureC'):
-
-                try:
-                    min_temp_value = float(weather_entry['Min TemperatureC'])
-                    if min_temp_value < min_temp_tuple[0]:
-
-                        min_temp_tuple = (min_temp_value, weather_entry['PKT'])
-                except ValueError:
-                    pass
-
-            if weather_entry.get('Max Humidity'):
-
-                try:
-                    max_humid_value = float(weather_entry['Max Humidity'])
-                    if max_humid_value > max_humid_tuple[0]:
-
-                        max_humid_tuple = (max_humid_value, weather_entry['PKT'])
-
-                except ValueError:
-                    continue
-
-        return YearlyExtremeWeatherResult(
-            max_temp_tuple[0],
-            max_temp_tuple[1],
-            min_temp_tuple[0],
-            min_temp_tuple[1],
-            max_humid_tuple[0],
-            max_humid_tuple[1]
-        )
-
-    def compute_monthly_averages_weather(self, month: str) -> MonthlyAveragesWeatherResult:
-        weather_data_filtered_by_month = self.filter_weather_data_by_month(month)
-        sums, counts = defaultdict(float), defaultdict(int)
-        for weather_entry in weather_data_filtered_by_month:
+    def error_handler(self, func):
+        """
+        Decorator to handle errors consistently.
+        """
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
             try:
-                sums['highest'] += float(weather_entry.get('Max TemperatureC', 0))
-                counts['highest'] += 1
-            except ValueError:
-                pass
-            try:
-                sums['lowest'] += float(weather_entry.get('Min TemperatureC', 0))
-                counts['lowest'] += 1
-            except ValueError:
-                pass
-            try:
-                sums['mean_humid'] += float(weather_entry.get('Mean Humidity', 0))
-                counts['mean_humid'] += 1
-            except ValueError:
-                continue
 
-        avg_highest = sums['highest'] / counts['highest'] if counts['highest'] > 0 else None
-        avg_lowest = sums['lowest'] / counts['lowest'] if counts['lowest'] > 0 else None
-        avg_mean_humid = sums['mean_humid'] / counts['mean_humid'] if counts['mean_humid'] > 0 else None
+                return func(*args, **kwargs)
+            except (ValueError, TypeError) as e:
+                logging.error(f'Error in {func.__name__}: {e}')
 
-        return MonthlyAveragesWeatherResult(
-            round(avg_highest, 2),
-            round(avg_lowest, 2),
-            round(avg_mean_humid, 2)
-        )
+                return None
 
-    def compute_monthly_extreme_weather(self, month: str) -> MonthlyExtremeBarChartResult:
+        return wrapper
+
+    def compute_yearly_extreme_weather(self, year: str) -> Union[YearlyExtremeWeatherResult, None]:
+        """
+        Compute the yearly extreme weather statistics (max temp, min temp, max humidity).
+        """
+        return self._compute_extreme_weather_by_period(year, 'year')
+
+    def compute_monthly_extreme_weather(self, month: str) -> Union[MonthlyExtremeBarChartResult, None]:
+        """
+        Compute the monthly extreme weather statistics (highest and lowest temperatures).
+        """
         weather_data_by_month = self.filter_weather_data_by_month(month)
-        highest_temp: List[float] = []
-        lowest_temp: List[float] = []
-        days: List[str] = []
+        days, highest_temp, lowest_temp = [], [], []
         for weather_entry in weather_data_by_month:
             days.append(weather_entry.get('PKT', ''))
-            try:
-                highest_temp.append(float(weather_entry.get('Max TemperatureC', 0))
-            except (ValueError, TypeError):
-                highest_temp.append(0)
-            try:
-                lowest_temp.append(float(weather_entry.get('Min TemperatureC', 0)))
-            except (ValueError, TypeError):
-                lowest_temp.append(0)
+            highest_temp.append(self._safe_float(weather_entry.get(MAX_TEMP, 0)) or 0)
+            lowest_temp.append(self._safe_float(weather_entry.get(MIN_TEMP, 0)) or 0)
 
-        return MonthlyExtremeBarChartResult(
-            days,
-            highest_temp,
-            lowest_temp
+        return MonthlyExtremeBarChartResult(days, highest_temp, lowest_temp)
+
+    def compute_monthly_averages_weather(self, month: str) -> Union[MonthlyAveragesWeatherResult, None]:
+        """
+        Compute the monthly average weather statistics (average max temp, min temp, mean humidity).
+        """
+        weather_data_filtered_by_month = self.filter_weather_data_by_month(month)
+        sums, counts = defaultdict(float), defaultdict(int)
+
+        for weather_entry in weather_data_filtered_by_month:
+            for key in [MAX_TEMP, MIN_TEMP, MEAN_HUMIDITY]:
+                value = self._extract_and_validate(weather_entry, key)
+                if value is not None:
+
+                    sums[key] += value
+                    counts[key] += 1
+
+        return MonthlyAveragesWeatherResult(
+            self._calculate_average(sums[MAX_TEMP], counts[MAX_TEMP]),
+            self._calculate_average(sums[MIN_TEMP], counts[MIN_TEMP]),
+            self._calculate_average(sums[MEAN_HUMIDITY], counts[MEAN_HUMIDITY])
         )
 
-    def filter_weather_data_by_year(self, date_year: str) -> list[Dict[str, str]]:
-        filtered_data: list[Dict[str, str]] = []
+    def _compute_extreme_weather_by_period(self, period: str, period_type: str) ->\
+            Union[YearlyExtremeWeatherResult, None]:
+        """
+        Compute the extreme weather statistics for a given period (year or month).
+        """
+        data_filter = self.filter_weather_data_by_year if period_type == 'year' else self.filter_weather_data_by_month
+        weather_data_filtered = data_filter(period)
+        extreme_values = {
+            MAX_TEMP: (max, NEGATIVE_INFINITY, ''),
+            MIN_TEMP: (min, POSITIVE_INFINITY, ''),
+            MAX_HUMIDITY: (max, NEGATIVE_INFINITY, ''),
+        }
+
+        for weather_entry in weather_data_filtered:
+            for key, (operation, initial, _) in extreme_values.items():
+                extreme_values[key] = self._update_extreme_tuple(
+                    extreme_values[key],
+                    self._extract_and_validate(weather_entry, key),
+                    weather_entry['PKT'],
+                    operation
+                )
+
+        return YearlyExtremeWeatherResult(
+            extreme_values[MAX_TEMP][0],
+            extreme_values[MAX_TEMP][1],
+            extreme_values[MIN_TEMP][0],
+            extreme_values[MIN_TEMP][1],
+            extreme_values[MAX_HUMIDITY][0],
+            extreme_values[MAX_HUMIDITY][1]
+        )
+
+    def _get_extreme_value(self, data: List[Dict[str, str]], key: str, func) -> Tuple[float, str]:
+        """
+        Utility function to get the extreme value (max/min) and corresponding day.
+        """
+        extreme_value, extreme_day = NEGATIVE_INFINITY if func == max else POSITIVE_INFINITY, ''
+        for weather_entry in data:
+            value = self._extract_and_validate(weather_entry, key)
+            extreme_value, extreme_day = self._update_extreme_tuple(
+                (extreme_value, extreme_day), value, weather_entry['PKT'], func
+            )
+
+        return extreme_value, extreme_day
+
+    def _extract_and_validate(self, weather_entry: Dict[str, str], key: str) -> Union[float, None]:
+        """
+        Extract and validate the value for the given key from a weather entry.
+        """
+
+        return self._safe_float(weather_entry.get(key, '')) if key in weather_entry else None
+
+    def _update_extreme_tuple(self, extreme_tuple: Tuple[float, str],
+                              value: float, date: str, func) -> Tuple[float, str]:
+        """
+        Update the extreme value tuple based on the comparison function provided.
+        """
+        if value is not None and func(value, extreme_tuple[0]) == value:
+
+            return value, date
+
+        return extreme_tuple
+
+    @error_handler
+    def _safe_float(self, value: str) -> float:
+        """
+        Safely convert a string to a float.
+        """
+        return float(value)
+
+    def filter_weather_data_by_year(self, date_year: str) -> List[Dict[str, str]]:
+        """
+        Filter weather data for a specific year.
+        """
         filter_year = int(date_year)
-        for weather_entry in self.weather_data:
-            if weather_entry.get('PKT'):
+        return [
+            entry for entry in self.weather_data
+            if extract_year(entry.get('PKT')) == filter_year
+        ]
 
-                weather_entry_year = extract_year(weather_entry.get('PKT'))
-                if filter_year == weather_entry_year:
+    def filter_weather_data_by_month(self, date_year_month: str) -> List[Dict[str, str]]:
+        """
+        Filter weather data for a specific month.
+        """
+        filter_year, filter_month = extract_year_month(date_year_month)
+        filtered_data = [
+            entry for entry in self.weather_data
+            if extract_year_month(entry.get('PKT')) == (filter_year, filter_month)
+        ]
+        if not filtered_data:
 
-                    filtered_data.append(weather_entry)
-
+            logging.error(f'Weather data related to {date_year_month} not found in records.')
+            raise ValueError(f'Weather data related to {date_year_month} not found in records. '
+                             f'Please enter a different date.')
         return filtered_data
 
-    def filter_weather_data_by_month(self, date_year_month: str) -> list[Dict[str, str]]:
-        filtered_data: list[Dict[str, str]] = []
-        for weather_entry in self.weather_data:
-            if weather_entry.get('PKT'):
-
-                weather_entry_year, weather_entry_month = extract_year_month(
-                                                          weather_entry.get('PKT'))
-                filter_year, filter_month = extract_year_month(date_year_month)
-
-                if (weather_entry_year == filter_year and
-                   weather_entry_month == filter_month):
-
-                    filtered_data.append(weather_entry)
-
-        if filtered_data:
-
-            return filtered_data
-        else:
-            raise ValueError(f'Weather data related to {date_year_month} not found in records. '
-                             f'Please Enter different date.')
-
+    @staticmethod
+    def _calculate_average(sum_value: float, count_value: int) -> Union[float, None]:
+        """
+        Calculate the average of a sum divided by a count.
+        """
+        return round(sum_value / count_value, 2) if count_value > 0 else None
