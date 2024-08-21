@@ -19,6 +19,10 @@ The application is organized as follows:
 
 ```bash
 Weatherman-App-TASK/
+├── weather-data/                # Directory containing weather data files
+│   ├── 2000.txt                 # Example weather data file for the year 2000
+│   ├── 2001.txt                 # Example weather data file for the year 2001
+│   └── ...                      # Other weather data files
 ├── weatherman/
 │   ├── __init__.py              # Initialization script
 │   ├── parser.py                # Module for parsing weather data
@@ -31,6 +35,7 @@ Weatherman-App-TASK/
 ├── main.py                      # Main application script
 ├── README.md                    # Documentation file
 ├── .gitignore                   # Specifies intentionally untracked files to ignore
+
 ````
 
 ## Dependencies
