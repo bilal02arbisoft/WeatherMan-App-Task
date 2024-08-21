@@ -39,6 +39,7 @@ class WeatherApp:
             self.weather_cal.compute_yearly_extreme_weather,
             WeatherReportsGenerate.report_on_yearly_extreme
         )
+
         return report
 
     @try_handler
@@ -48,6 +49,7 @@ class WeatherApp:
             self.weather_cal.compute_monthly_averages_weather,
             WeatherReportsGenerate.report_on_monthly_average
         )
+
         return report
 
     @try_handler
@@ -57,6 +59,7 @@ class WeatherApp:
             self.weather_cal.compute_monthly_extreme_weather,
             WeatherReportsGenerate.report_on_monthly_extreme_bar_chart
         )
+
         return report
 
     def run(self, args):
