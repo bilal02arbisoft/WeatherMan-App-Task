@@ -1,22 +1,47 @@
 from typing import Set, Callable
-from .utils import extract_year
-from .utils import is_valid_year, is_valid_year_month
+from weatherman.utils import (extract_year,
+                              is_valid_year,
+                              is_valid_year_month)
 
 
 class ValidateProcessWeather:
     """
-    Validates user inputs and processes weather data based on it
+    Validates user inputs and processes weather data based on it.
     """
     def __init__(self, weather_years: Set[int]):
-
         self.weather_existing_years = weather_years
 
-    def year_found_in_existing_years(self, date_year) -> bool:
-
+    def is_year_in_existing_years(self, date_year: int) -> bool:
+        """
+        Checks if the year is in the existing weather years.
+        """
         return date_year in self.weather_existing_years
 
-    def monthly_weather(self, date_year_month: str,
-                        compute_weather: Callable,
+    def validate_and_process(self, date: str, is_valid_date: Callable[[str], bool],
+                             compute_weather: Callable, generate_weather_report: Callable,
+                             date_type: str) -> str:
+        """
+        Validates the date, processes weather data, and generates a report.
+        Args:
+            date (str): The date string (YYYY or YYYY-MM) to validate and process.
+            is_valid_date (Callable[[str], bool]): Function to validate the date format.
+            compute_weather (Callable): Function to compute weather statistics.
+            generate_weather_report (Callable): Function to generate weather report.
+            date_type (str): Type of date, either 'year' or 'month'.
+        """
+        if is_valid_date(date):
+            year = extract_year(date) if date_type == 'month' else int(date)
+            if self.is_year_in_existing_years(year):
+                results = compute_weather(date)
+                return generate_weather_report(results)
+
+            raise ValueError(f'Input {year} does not exist in records. '
+                             f'Please enter a year in range: {self.weather_existing_years}')
+
+        expected_format = 'YYYY-MM' if date_type == 'month' else 'YYYY'
+        raise ValueError(f'Invalid {date_type} format {date}. Please use format {expected_format}.')
+
+    def monthly_weather(self, date_year_month: str, compute_weather: Callable,
                         generate_weather_report: Callable) -> str:
         """
         Processes monthly weather data and generates a formatted report.
@@ -24,56 +49,19 @@ class ValidateProcessWeather:
             date_year_month (str): Year and month (YYYY-MM) for which to process weather data.
             compute_weather (Callable): Function to compute weather statistics.
             generate_weather_report (Callable): Function to generate weather report.
-        Returns:
-            str: Formatted report on monthly weather statistics.
         """
-        if (is_valid_year_month(date_year_month) and
-           self.year_found_in_existing_years(extract_year(date_year_month))):
+        return self.validate_and_process(date_year_month, is_valid_year_month,
+                                         compute_weather, generate_weather_report,
+                                         'month')
 
-            result = compute_weather(date_year_month)
-            report = generate_weather_report(result)
-
-            return report
-
-        elif not is_valid_year_month(date_year_month):
-
-            raise ValueError(f'Invalid date format {date_year_month}. '
-                             f'Please use format YYYY-MM ')
-
-        elif not self.year_found_in_existing_years(extract_year(date_year_month)):
-
-            raise ValueError(f'Input \'{extract_year(date_year_month)}\''
-                             f' year mentioned in input {date_year_month} does not'
-                             f' exist in records. Pls enter year in range: \n '
-                             f'{self.weather_existing_years}')
-
-    def yearly_weather(self, date_year: str,
-                       compute_weather: Callable,
+    def yearly_weather(self, date_year: str, compute_weather: Callable,
                        generate_weather_report: Callable) -> str:
         """
         Processes yearly weather data and generates a formatted report.
-           Args:
-               date_year (str): Year for which to process weather data.
-               compute_weather (Callable): Function to compute weather statistics.
-               generate_weather_report (Callable): Function to generate weather report.
-           Returns:
-               str: Formatted report on yearly weather statistics.
+        Args:
+            date_year (str): Year for which to process weather data.
+            compute_weather (Callable): Function to compute weather statistics.
+            generate_weather_report (Callable): Function to generate weather report.
         """
-        if (is_valid_year(date_year) and
-           self.year_found_in_existing_years(int(date_year))):
-
-            results = compute_weather(date_year)
-            report = generate_weather_report(results)
-
-            return report
-
-        elif not is_valid_year(date_year):
-
-            raise ValueError(f'Invalid year format: \'{date_year}\'.'
-                             f' Please use format YYYY.')
-
-        elif not self.year_found_in_existing_years(int(date_year)):
-
-            raise ValueError(f'Input \'{date_year}\' year does not exists in records '
-                             f'Please enter year in range: \n'
-                             f'{self.weather_existing_years}')
+        return self.validate_and_process(date_year, is_valid_year, compute_weather,
+                                         generate_weather_report, 'year')
