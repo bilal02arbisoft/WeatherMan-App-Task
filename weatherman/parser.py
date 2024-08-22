@@ -1,7 +1,8 @@
-import os
 import glob
+import os
 from typing import Dict, List, Set
-from weatherman.utils import is_valid_path, extract_year
+
+from weatherman.utils import extract_year, is_valid_path
 
 
 class ParseWeatherFiles:
