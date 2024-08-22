@@ -1,9 +1,10 @@
 import argparse
-from weatherman.parser import WeatherDataController
+import functools
+
 from weatherman.calculations import WeatherCalculations
+from weatherman.parser import WeatherDataController
 from weatherman.reports import WeatherReportsGenerate
 from weatherman.validateandprocess import ValidateProcessWeather
-import functools
 
 
 def try_handler(func):
