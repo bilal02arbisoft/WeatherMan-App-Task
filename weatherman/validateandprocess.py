@@ -1,7 +1,6 @@
-from typing import Set, Callable
-from weatherman.utils import (extract_year,
-                              is_valid_year,
-                              is_valid_year_month)
+from typing import Callable, Set
+
+from weatherman.utils import extract_year, is_valid_year, is_valid_year_month
 
 
 class ValidateProcessWeather:
