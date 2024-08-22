@@ -2,10 +2,9 @@ import functools
 import logging
 from collections import defaultdict
 from typing import Dict, List, Tuple, Union
+
+from weatherman.results import MonthlyAveragesWeatherResult, MonthlyExtremeBarChartResult, YearlyExtremeWeatherResult
 from weatherman.utils import extract_year, extract_year_month
-from weatherman.results import (YearlyExtremeWeatherResult,
-                                MonthlyAveragesWeatherResult,
-                                MonthlyExtremeBarChartResult)
 
 MAX_TEMP = 'Max TemperatureC'
 MIN_TEMP = 'Min TemperatureC'
