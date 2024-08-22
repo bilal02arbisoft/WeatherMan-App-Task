@@ -1,6 +1,6 @@
+import os
 import re as regex
 from typing import Tuple
-import os
 
 
 def extract_year_month(date: str) -> Tuple[int, int]:
